@@ -1,26 +1,76 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import SetTimer from './SetTimer'
+import DisplayTime from './DisplayTime'
+import StartStop from './StartStop'
+import Reset from './Reset'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputTime: 0,
+      runningTime: 0,
+      status: false
+    }
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <SetTimer 
+          timeValue={this.state.inputTime}
+          handleChange={this._setInputNum}
+          />
+
+        <DisplayTime 
+          time={this.state.runningTime}
+          />
+
+        <StartStop time={this.state.inputTime}
+          handleClick={this._handleClick}
+          status={this.state.status}/>
+
+        <Reset 
+          onClick={this._handleReset}
+          />
+        
+      </div>
+    );
+  }
+  _setInputNum = (inputTime) => {
+    this.setState({
+      inputTime,
+      runningTime: inputTime
+    })
+  }
+
+
+  _handleClick = () => {
+    this.setState( state => {
+        if (state.status) {
+            clearInterval(this.timer);
+        } else {
+            
+            let interval = 1;
+            this.timer = setInterval (() => {
+                this.setState({
+                    runningTime: this.state.runningTime - interval, 
+                    status: true })
+            }, 1000)
+        }
+        return { status: !state.status};
+    })
 }
+
+_handleReset = () => {
+  this.setState({
+      status: false,
+      runningTime: 0,
+  })
+}
+
+}
+
 
 export default App;
