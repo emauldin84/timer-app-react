@@ -9,7 +9,7 @@ class App extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      inputTime: 0,
+      inputTime: '',
       runningTime: 0,
       status: false
     }
@@ -25,6 +25,7 @@ class App extends React.Component{
 
         <DisplayTime 
           time={this.state.runningTime}
+          timer={this.timer}
           />
 
         <StartStop time={this.state.inputTime}
@@ -59,7 +60,7 @@ class App extends React.Component{
                     status: true })
             }, 1000)
         }
-        return { status: !state.status};
+        return { status: !state.status };
     })
 }
 
@@ -67,6 +68,7 @@ _handleReset = () => {
   this.setState({
       status: false,
       runningTime: 0,
+      inputTime: ''
   })
 }
 

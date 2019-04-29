@@ -1,8 +1,8 @@
 import React from 'react';
 
-function DisplayTime({time, handleChange}) {
+function DisplayTime({time}) {
     return(
-        <h3>{time}secs</h3>
+        <h3>{(time > 0) ? time : "Time up!"}</h3>
     )
 
 }
