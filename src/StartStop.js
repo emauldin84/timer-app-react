@@ -5,7 +5,7 @@ function StartStop({handleClick, status}) {
     console.log({status})
     return (
         <div>
-            <button onClick={handleClick}>{{status} ? 'Stop' : 'Start'}</button>
+            <button onClick={handleClick}>{status ? 'Stop' : 'Start'}</button>
         </div>
     )
 }
